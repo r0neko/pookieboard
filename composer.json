@@ -1,7 +1,13 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "r0neko/pookieboard",
+    "description": "A simple and modular CMS system, built with the Laravel Lumen framework.",
+    "version": "0.3.4",
+    "keywords": [
+        "cms",
+        "framework",
+        "laravel",
+        "lumen"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {

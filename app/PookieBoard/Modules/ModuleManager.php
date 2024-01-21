@@ -3,6 +3,7 @@
 namespace App\PookieBoard\Modules;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -66,6 +67,7 @@ class ModuleManager
 
         $routesFile = $package->getRelativePackagePath("/src/Module/routes.php");
         $viewsDir = $package->getRelativePackagePath("/src/resources/views");
+        $migrationsDir = $package->getRelativePackagePath("/src/Migrations");
 
         if (File::exists($routesFile)) {
             // register routes
@@ -81,6 +83,14 @@ class ModuleManager
         // register views if there is "src/resources/views" in the module
         if (is_dir($viewsDir)) {
             app('view')->addLocation($viewsDir);
+        }
+
+        // register migrations if there is "src/Migrations" in the module
+        // after all the service providers booted
+        if (is_dir($migrationsDir)) {
+            app()->afterResolving('migrator', function () use ($migrationsDir) {
+                app('migrator')->path($migrationsDir);
+            });
         }
     }
 
@@ -104,16 +114,28 @@ class ModuleManager
         $package->getAutoloader()->register();
         $package->getModule()->activate();
 
+        $migrationsDir = $package->getRelativePackagePath("/src/Migrations");
+        if (is_dir($migrationsDir)) {
+            // perform migrations
+            Artisan::call('migrate');
+        }
+
         // save the changes in the DB
         DB::table('pb_modules')->updateOrInsert(['name' => $package->getName()], ['active' => 1]);
     }
 
     public function deactivatePackage(ModulePackage $package) {
-        $package->getModule()->deactivate();
+        // revert changes
+        $migrationsDir = $package->getRelativePackagePath("/src/Migrations");
+        if (is_dir($migrationsDir)) {
+            // ToDo: fix migration rollback
+            Artisan::call('migrate:rollback', ['--path' => $migrationsDir . '/*']);
+        }
 
         // save the changes in the DB
         DB::table('pb_modules')->updateOrInsert(['name' => $package->getName()], ['active' => 0]);
 
+        $package->getModule()->deactivate();
         $package->getAutoloader()->unregister();
 
         // unload the plugin asap.

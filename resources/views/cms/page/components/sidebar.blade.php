@@ -1,3 +1,8 @@
+@php
+    use App\PookieBoard\Modules\Navigation\NavigationItem;
+    use App\PookieBoard\Modules\Navigation\NestedNavigationItemCollection;
+@endphp
+
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark pb-sidebar-container">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-4">PookieBoard</span>
@@ -11,8 +16,12 @@
         </div>
         <div class="offcanvas-body d-flex flex-column flex-shrink-1 text-white h-100">
             <ul class="nav nav-pills flex-column mb-auto">
-                @foreach($panelRoutes->getRoutes() as $route)
-                    {!! $route->render() !!}
+                @foreach($cmsSidebarItems->getItems() as $item)
+                    @if($item instanceof NavigationItem)
+                        @include("cms.page.components.sidebar.singular-item", ["item" => $item])
+                    @elseif($item instanceof NestedNavigationItemCollection)
+                        @include("cms.page.components.sidebar.nested-item", ["item" => $item])
+                    @endif
                 @endforeach
             </ul>
             <hr>

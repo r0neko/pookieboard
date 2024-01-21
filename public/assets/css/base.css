@@ -24,9 +24,13 @@ main {
     width: 280px;
 }
 
-.navbar-brand {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
+.nav-link:hover {
+    cursor: pointer;
+}
+
+.nav-item-toggle a {
+    margin-top: .125rem;
+    margin-left: 1.25rem;
 }
 
 @media (max-width: 768px) {

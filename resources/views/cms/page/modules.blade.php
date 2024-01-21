@@ -4,8 +4,14 @@
 
 @section('content')
     <br>
+    <div class="alert alert-danger"><b>IMPORTANT:</b>&nbsp;This page is currently WORK IN PROGRESS and features NO FUNCTIONALITY as of
+        now.<br>Please use the equivalent console commands in order
+        to manage the modules:
+        <code>php artisan
+            module:activate &lt;module&gt;</code> or <code>php artisan module:deactivate &lt;module&gt;</code>
+    </div>
     @foreach($modules as $module)
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-body">
                 <h5 class="card-title">
                     {{ $module->getName() }}

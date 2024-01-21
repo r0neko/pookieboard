@@ -2,6 +2,10 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+use App\PookieBoard\Providers\ModuleServiceProvider;
+use App\PookieBoard\Providers\NavigationServiceProvider;
+use App\PookieBoard\Providers\VersionServiceProvider;
+
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
 ))->bootstrap();
@@ -94,8 +98,9 @@ $app->configure('app');
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(\App\PookieBoard\Providers\NavigationServiceProvider::class);
-$app->register(\App\PookieBoard\Providers\ModuleServiceProvider::class);
+$app->register(VersionServiceProvider::class);
+$app->register(NavigationServiceProvider::class);
+$app->register(ModuleServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

@@ -15,7 +15,10 @@ class ModuleManager
 
     public function loadPackages()
     {
-        $this->modulesDBList = DB::table("pb_modules")->get()->all();
+        // make sure the pb_modules list exist beforehand
+        if(DB::table("pb_modules")->exists()) {
+            $this->modulesDBList = DB::table("pb_modules")->get()->all();
+        }
 
         $modulesPath = base_path('modules');
         $modules = File::directories($modulesPath);

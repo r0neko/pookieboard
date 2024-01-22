@@ -11,6 +11,7 @@ class ModuleManager
 {
     protected $loadedModules = [];
     protected $modulesDBList = [];
+    protected $modulesSeeders = [];
 
     public const POOKIEBOARD_MODULE_TYPE = 'pookieboard-module';
 
@@ -44,6 +45,16 @@ class ModuleManager
 
         if (File::exists($servicesFile)) {
             return include $servicesFile;
+        }
+
+        return [];
+    }
+
+    protected function getSeeders(ModulePackage $package) {
+        $seedersFile = $package->getRelativePackagePath("/src/Module/seeders.php");
+
+        if (File::exists($seedersFile)) {
+            return include $seedersFile;
         }
 
         return [];
@@ -92,6 +103,9 @@ class ModuleManager
                 app('migrator')->path($migrationsDir);
             });
         }
+
+        // register seeders
+        $this->modulesSeeders = array_merge($this->modulesSeeders, $this->getSeeders($package));
     }
 
     public function hasPackage(string $modulePackageName): bool
@@ -177,5 +191,9 @@ class ModuleManager
     public function getLoadedModules()
     {
         return $this->loadedModules;
+    }
+
+    public function getModuleSeeders() {
+        return $this->modulesSeeders;
     }
 }

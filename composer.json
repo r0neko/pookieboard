@@ -1,7 +1,7 @@
 {
     "name": "r0neko/pookieboard",
     "description": "A simple and modular CMS system, built with the Laravel Lumen framework.",
-    "version": "0.4.6",
+    "version": "0.5.7",
     "keywords": [
         "cms",
         "framework",

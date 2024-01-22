@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\PookieBoard\Modules\ModuleManager;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,8 +12,10 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(ModuleManager $m)
     {
-        // $this->call('UsersTableSeeder');
+        foreach($m->getModuleSeeders() as $seeder) {
+            (new $seeder())->run();
+        }
     }
 }

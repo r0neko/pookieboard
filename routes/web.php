@@ -11,3 +11,6 @@ $router->get('/admin/modules', [
     'as' => 'cms.modules',
     'uses' => 'ModulesController@index'
 ]);
+
+// Media-related controller route
+$router->get('/media/{id}', 'MediaController@getMedia');

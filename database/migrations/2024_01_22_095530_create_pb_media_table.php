@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pb_modules', function (Blueprint $table) {
-            $table->string("name")->unique("pb_modules_unique_module_name")->primary();
-            $table->boolean("active")->default(0);
+        Schema::create('pb_media', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('originalName', 128);
+            $table->string('description', 128)->nullable()->default(null);
+            $table->timestamps();
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pb_modules');
+        Schema::dropIfExists('pb_media');
     }
 };

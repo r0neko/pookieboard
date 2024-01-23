@@ -30,6 +30,8 @@ Configure the database structure by running
 
 Congrats! Now you should have a fresh base installatiion of PookieBoard! To enhance the functionality of the app, you should install some modules! (or develop some :])
 
+**If you have issues after installation (500 error)** it may be because of wrong ownership/permissions of the folder. I usually fix it by just running `chown -Rf www-data pookieboard/*`
+
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

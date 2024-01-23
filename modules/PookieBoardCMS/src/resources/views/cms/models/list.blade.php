@@ -3,7 +3,11 @@
 @section('heading', "Model Overview")
 
 @section('content')
-    <a type="button" class="btn btn-primary" href="{{ route("cms.model.add", ["model" => $model]) }}">Add</a>
+    <a type="button" class="btn btn-primary btn-block" href="{{ route("cms.model.new", ["model" => $model]) }}">
+        <i class="fa-solid fa-plus"></i>
+        Add
+    </a>
+    <br><br>
     <table class="table table-striped">
         <thead>
         <tr class="table-light">

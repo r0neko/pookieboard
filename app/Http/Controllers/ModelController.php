@@ -43,6 +43,7 @@ class ModelController extends Controller
         }
 
         return view("cms.models.list", [
+            "model" => $model,
             "columns" => $keys,
             "values" => $finalValues
         ]);

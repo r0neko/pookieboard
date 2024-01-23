@@ -1,7 +1,7 @@
 {
     "name": "r0neko/pookieboard-cms",
     "description": "PookieBoard CMS Platform",
-    "version": "0.11.9",
+    "version": "0.12.10",
     "type": "pookieboard-core",
     "autoload": {
         "psr-4": {

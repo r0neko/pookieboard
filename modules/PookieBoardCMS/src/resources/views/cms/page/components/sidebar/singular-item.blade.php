@@ -1,6 +1,6 @@
 @if($item->isVisible())
     <li class="nav-item">
-        <a href="{{ route($item->getRoute()) }}"
+        <a href="{{ $item->getUrl() }}"
            @class(['nav-link','active' => $item->isActive()]) aria-current="page">
             @if($item->getIcon())
                 {!! $item->getIcon()->render("me-2") !!}

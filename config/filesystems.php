@@ -59,6 +59,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'bundles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/bundles'),
+            'url' => env('APP_URL') . '/bundles',
+            'visibility' => 'public',
+        ],
+
         'ftp' => [
             'driver' => 'ftp',
             'host' => 'ftp.example.com',

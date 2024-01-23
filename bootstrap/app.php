@@ -1,10 +1,12 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
+use App\PookieBoard\Providers\CMSModelServiceProvider;
 use App\PookieBoard\Providers\ModuleServiceProvider;
 use App\PookieBoard\Providers\NavigationServiceProvider;
 use App\PookieBoard\Providers\VersionServiceProvider;
+use Illuminate\Session\Middleware\StartSession;
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -28,8 +30,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,10 @@ $app->configure('app');
 |
 */
 
+$app->middleware([
+    StartSession::class,
+]);
+
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
@@ -95,11 +100,12 @@ $app->configure('app');
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(VersionServiceProvider::class);
 $app->register(NavigationServiceProvider::class);
+$app->register(CMSModelServiceProvider::class);
 $app->register(ModuleServiceProvider::class);
 
 /*
@@ -116,7 +122,7 @@ $app->register(ModuleServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
 
 return $app;

@@ -13,19 +13,22 @@ class ModulePackage
     protected $active;
     protected $module;
     protected $autoloader;
+    protected $isCoreModule;
 
     /**
      * @param $name
      * @param $metadata
      * @param $packagePath
      * @param $active
+     * @param $core
      */
-    public function __construct($name, $metadata, $packagePath, $active = false)
+    public function __construct($name, $metadata, $packagePath, $active = false, $core = false)
     {
         $this->name = $name;
         $this->metadata = $metadata;
         $this->packagePath = $packagePath;
         $this->active = $active;
+        $this->isCoreModule = $core;
     }
 
     /**
@@ -59,7 +62,21 @@ class ModulePackage
 
     public function isActive(): mixed
     {
+        // core modules are always enabled!
+        if($this->isCoreModule) {
+            return true;
+        }
+
         return $this->active;
+    }
+
+    public function isCoreModule(): mixed
+    {
+        return $this->isCoreModule;
+    }
+
+    public function version(): string {
+        return $this->metadata->version ?: "0.0.0";
     }
 
     public function getDescription(): string|null {
@@ -94,6 +111,6 @@ class ModulePackage
      * @return string
      */
     public function getRelativePackagePath(string $path) {
-        return join_paths($this->getPackagePath(), $path);
+        return realpath(join_paths($this->getPackagePath(), $path));
     }
 }

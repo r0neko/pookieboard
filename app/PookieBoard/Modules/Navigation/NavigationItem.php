@@ -22,7 +22,7 @@ class NavigationItem extends AbstractNavigationItem
         return request()->routeIs($this->route);
     }
 
-    public function getRoute(): string {
-        return $this->route;
+    public function getUrl(): string {
+        return route($this->route);
     }
 }

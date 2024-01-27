@@ -72,7 +72,7 @@ class ModelController extends Controller
         return redirect(route("cms.model.all", ["model" => $model]));
     }
 
-    public function saveModel($model, $id = null, Request $request)
+    public function saveModel(Request $request, $model, $id = null)
     {
         $models = app('cms.models');
         $type = $models->getModel($model);

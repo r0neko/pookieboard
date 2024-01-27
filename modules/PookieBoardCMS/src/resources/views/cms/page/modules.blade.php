@@ -3,13 +3,6 @@
 @section('heading', "Modules")
 
 @section('content')
-    <div class="alert alert-danger"><b>IMPORTANT:</b>&nbsp;This page is currently WORK IN PROGRESS and features NO
-        FUNCTIONALITY as of
-        now.<br>Please use the equivalent console commands in order
-        to manage the modules:
-        <code>php artisan
-            module:activate &lt;module&gt;</code> or <code>php artisan module:deactivate &lt;module&gt;</code>
-    </div>
     @foreach($modules as $module)
         <div class="card mb-2">
             <div class="card-body">
@@ -17,7 +10,6 @@
                     {{ $module->getName() }}
                     <small class="text-muted">(v{{ $module->version() }})</small>
                     @if(!$module->isActive())
-                        &nbsp;
                         <small class="text-muted">(inactive)</small>
                     @endif
                 </h5>
@@ -26,9 +18,9 @@
                 @if(!$module->isCoreModule())
                     <div class="mt-3">
                         @if(!$module->isActive())
-                            <button type="button" class="btn btn-primary">Activate</button>
+                            <a href="{{ route("cms.module.activate", ["module" => $module->getName()]) }}" class="btn btn-primary">Activate</a>
                         @else
-                            <button type="button" class="btn btn-secondary">Deactivate</button>
+                            <a href="{{ route("cms.module.deactivate", ["module" => $module->getName()]) }}" class="btn btn-secondary">Deactivate</a>
                         @endif
                     </div>
                 @endif

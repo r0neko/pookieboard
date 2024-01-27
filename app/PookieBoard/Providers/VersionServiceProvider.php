@@ -8,7 +8,7 @@ class VersionServiceProvider extends ServiceProvider
 {
     public function register() {
         $this->app->singleton('cms.version', function ($app) {
-            return 'v0.12.10';
+            return 'v0.13.11';
         });
     }
 }

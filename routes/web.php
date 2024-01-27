@@ -7,11 +7,23 @@ $router->get('/admin', [
     'uses' => 'AdminController@index'
 ]);
 
+// Module Management
 $router->get('/admin/modules', [
     'as' => 'cms.modules',
     'uses' => 'ModulesController@index'
 ]);
 
+$router->get('/admin/module/{module}/activate', [
+    'as' => 'cms.module.activate',
+    'uses' => 'ModulesController@activate'
+]);
+
+$router->get('/admin/module/{module}/deactivate', [
+    'as' => 'cms.module.deactivate',
+    'uses' => 'ModulesController@deactivate'
+]);
+
+// Model Management
 $router->get('/admin/{model}', [
     'as' => 'cms.model.all',
     'uses' => 'ModelController@showAll'
@@ -42,6 +54,6 @@ $router->get('/admin/{model}/delete/{id}', [
     'uses' => 'ModelController@delete'
 ]);
 
-// Media-related controller route
+// Media and bundle Management
 $router->get('/media/{id}', 'MediaController@getMedia');
 $router->get('/bundles/{file:.*}', 'BundleController@getBundleFile');
